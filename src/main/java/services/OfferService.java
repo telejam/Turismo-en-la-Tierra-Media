@@ -1,14 +1,13 @@
 package services;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 
 import model.Offer;
 import persistence.commons.DAOFactory;
 
 public class OfferService {
-
+/*
 	public List<Offer> list() {
 		List<Offer> offers = new ArrayList<Offer>();
 		offers.addAll(DAOFactory.getAttractionDAO().findAll());
@@ -17,5 +16,5 @@ public class OfferService {
 
 		return offers;
 	}
-
+*/
 }
