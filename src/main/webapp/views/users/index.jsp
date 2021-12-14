@@ -64,14 +64,13 @@
 								</c:otherwise>
 							</c:choose>						
 						</td>
-						<td>
+						<td><c:if test="${user.admin && (!tmp_user.admin || tmp_user.id == user.id)}">
 								<a href="/turismo/users/edit.do?id=${tmp_user.id}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
 								<a href="/turismo/users/delete.do?id=${tmp_user.id}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
-									<c:if test="${user.admin && (!tmp_user.admin || tmp_user.id == user.id)}">
 							</c:if></td>
 					</tr>
 				</c:forEach>

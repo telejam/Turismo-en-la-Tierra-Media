@@ -37,17 +37,21 @@
 						<td><c:out value="${offer.getDuration()}"></c:out></td>
 						<td><c:out value="${offer.getCapacity()}"></c:out></td>
 
-						<td><c:choose>
-								<c:when
-									test="${user.canAfford(offer) && user.canAttend(offer) && offer.canHost(1)}">
-									<a href="/turismo/offer/buy.do?id=${offer.id}"
-										class="btn btn-success rounded" role="button">Comprar</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#" class="btn btn-secondary rounded disabled"
-										role="button">No se puede comprar</a>
-								</c:otherwise>
-							</c:choose></td>
+						<td>
+							<c:if test="${!user.isAdmin()}">
+								<c:choose>
+									<c:when
+										test="${user.canAfford(offer) && user.canAttend(offer) && offer.canHost(1)}">
+										<a href="/turismo/offer/buy.do?id=${offer.id}"
+											class="btn btn-success rounded" role="button">Comprar</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#" class="btn btn-secondary rounded disabled"
+											role="button">No se puede comprar</a>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

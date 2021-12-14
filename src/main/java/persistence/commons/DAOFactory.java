@@ -1,9 +1,11 @@
 package persistence.commons;
 
-import persistence.*;
+import persistence.AttractionDAO;
+import persistence.BasePromotionDAO;
 import persistence.UserDAO;
-import persistence.impl.*;
-
+import persistence.impl.AttractionDAOImpl;
+import persistence.impl.BasePromotionDAOImpl;
+import persistence.impl.UserDAOImpl;
 
 public class DAOFactory {
 
@@ -14,9 +16,8 @@ public class DAOFactory {
 	public static AttractionDAO getAttractionDAO() {
 		return new AttractionDAOImpl();
 	}
-	/*
-	public static PromotionDAO getPromotionDAO() {
-		return new PromotionDAOImpl();
+	
+	public static BasePromotionDAO getPromotionDAO() {
+		return new BasePromotionDAOImpl();
 	}
-	*/
 }

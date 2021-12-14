@@ -54,6 +54,4 @@ public class BuyOfferServlet extends HttpServlet {
 				.getRequestDispatcher("/offers/index.do");
 		dispatcher.forward(req, resp);
 	}
-	
 }
-

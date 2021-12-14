@@ -1,4 +1,4 @@
-package controller.offers;
+package controller.promotions;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,31 +11,31 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Offer;
-import services.OfferService;
+import model.Promotion;
+import services.PromotionService;
 
-@WebServlet("/offers/index.do")
-public class ListOfferServlet extends HttpServlet implements Servlet {
+@WebServlet("/promotions/index.do")
+public class ListPromotionsServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = -8346640902238722429L;
-	private OfferService offerService;
+	private PromotionService promotionService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.offerService = new OfferService();
+		this.promotionService = new PromotionService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		List<Promotion> promotions;
 		try {
-			List<Offer> offers;
-			offers = offerService.list();
-			req.setAttribute("offers", offers);
+			promotions = promotionService.list();
+			req.setAttribute("promotions", promotions);
 
 			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/offers/index.jsp");
+					.getRequestDispatcher("/views/promotions/index.jsp");
 			dispatcher.forward(req, resp);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
