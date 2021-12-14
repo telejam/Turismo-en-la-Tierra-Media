@@ -7,13 +7,13 @@ public class Attraction {
 
 	private Integer id;
 	private String name;
-	private Integer cost;
+	private Double cost;
 	private Double duration;
 	private Integer capacity;
 	
 	private Map<String, String> errors;
 	
-	public Attraction(String name, Integer cost, Double duration, Integer capacity) {
+	public Attraction(String name, Double cost, Double duration, Integer capacity) {
 		super();
 		this.name = name;
 		this.cost = cost;
@@ -21,7 +21,7 @@ public class Attraction {
 		this.capacity = capacity;
 	}
 	
-	public Attraction(Integer id, String name, Integer cost, Double duration, Integer capacity) {
+	public Attraction(Integer id, String name, Double cost, Double duration, Integer capacity) {
 		this(name, cost, duration, capacity);
 		this.id = id;
 	}
@@ -68,11 +68,11 @@ public class Attraction {
 		this.name = name;
 	}
 
-	public Integer getCost() {
+	public Double getCost() {
 		return cost;
 	}
 
-	public void setCost(Integer cost) {
+	public void setCost(Double cost) {
 		this.cost = cost;
 	}
 

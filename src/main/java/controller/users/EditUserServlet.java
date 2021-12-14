@@ -47,7 +47,7 @@ public class EditUserServlet extends HttpServlet {
 		User user = userService.update(id, username, password, coin, time);
 
 		if (user.isValid()) {
-			resp.sendRedirect("/turismo/users/index.do");
+			resp.sendRedirect("/TierraMedia3/users/index.do");
 		} else {
 			req.setAttribute("user", user);
 

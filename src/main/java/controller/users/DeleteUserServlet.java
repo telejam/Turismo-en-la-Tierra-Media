@@ -27,7 +27,7 @@ public class DeleteUserServlet extends HttpServlet {
 
 		userService.delete(id);
 
-		resp.sendRedirect("/turismo/users/index.do");
+		resp.sendRedirect("/TierraMedia3/users/index.do");
 	}
 
 
