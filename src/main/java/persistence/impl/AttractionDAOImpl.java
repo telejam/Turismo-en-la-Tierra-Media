@@ -55,7 +55,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 	
 	private Attraction toAttraction(ResultSet attractionRegister) throws SQLException {
 		return new Attraction(attractionRegister.getInt(1), attractionRegister.getString(2),
-				attractionRegister.getInt(3), attractionRegister.getDouble(4), attractionRegister.getInt(5));
+				attractionRegister.getDouble(3), attractionRegister.getDouble(4), attractionRegister.getInt(5));
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, attraction.getName());
-			statement.setInt(i++, attraction.getCost());
+			statement.setDouble(i++, attraction.getCost());
 			statement.setDouble(i++, attraction.getDuration());
 			statement.setInt(i++, attraction.getCapacity());
 			int rows = statement.executeUpdate();
@@ -87,7 +87,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, attraction.getName());
-			statement.setInt(i++, attraction.getCost());
+			statement.setDouble(i++, attraction.getCost());
 			statement.setDouble(i++, attraction.getDuration());
 			statement.setInt(i++, attraction.getCapacity());
 			statement.setInt(i++, attraction.getId());

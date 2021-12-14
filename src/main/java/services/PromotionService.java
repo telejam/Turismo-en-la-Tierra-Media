@@ -18,110 +18,116 @@ public class PromotionService {
 		List<Promotion> promotions = new ArrayList<Promotion>();
 		List<BasePromotion> basePromotions = DAOFactory.getPromotionDAO().findAll();
 
-		List<Integer> idsIncludedAttractions;
-		List<Integer> idsFreeAttractions;
-		List<Attraction> includedAttractions;
-		List<Attraction> paidForAttractions;
-		List<Attraction> freeAttractions;
-
 		for (BasePromotion promotion : basePromotions) {
-
-			idsIncludedAttractions = DAOFactory.getPromotionDAO().findIdsIncluded(promotion.getId());
-			
-			includedAttractions = new ArrayList<Attraction>();
-			for (int id : idsIncludedAttractions) {
-				Attraction attraction = DAOFactory.getAttractionDAO().find(id); 
-				includedAttractions.add(attraction);
-			}
-			
-			if (promotion.getType().equals("%")) {
-
-				promotions.add(new PorcentualPromotion(
-						promotion.getId(),
-						promotion.getName(),
-						includedAttractions, 
-						promotion.getValue()
-				));
-
-			} else if (promotion.getType().equals("$")) {
-
-				promotions.add(new AbsolutePromotion(
-					promotion.getId(),
-					promotion.getName(),
-					includedAttractions, 
-					promotion.getValue()
-				));
-
-			} else { 
-
-				paidForAttractions = new ArrayList<Attraction>();
-				paidForAttractions.addAll(includedAttractions);
-				
-				idsFreeAttractions = DAOFactory.getPromotionDAO().findIdsFree(promotion.getId());
-				
-				freeAttractions = new ArrayList<Attraction>();
-				for (int id : idsFreeAttractions) {
-					Attraction attraction = DAOFactory.getAttractionDAO().find(id); 
-					freeAttractions.add(attraction);
-				}
-
-				includedAttractions.addAll(freeAttractions);
-
-				
-				promotions.add(new AxBPromotion(
-						promotion.getId(),
-						promotion.getName(),
-						includedAttractions, 
-						paidForAttractions
-				));
-
-			}
-
+			promotions.add(find(promotion.getId()));
 		}
 
 		return promotions;
 	}
 
-	public Promotion create(String name, Double cost, Double duration, Integer capacity) {
-
-		Promotion promotion = new Promotion(name, cost, duration, capacity);
-
-		if (promotion.isValid()) {
-			PromotionDAO promotionDAO = DAOFactory.getPromotionDAO();
-			promotionDAO.insert(promotion);
-			// XXX: si no devuelve "1", es que hubo más errores
+	public Promotion find(int id) throws SQLException {
+		List<Integer> idsIncludedAttractions;
+		List<Integer> idsFreeAttractions;
+		List<Attraction> includedAttractions;
+		List<Attraction> paidForAttractions;
+		List<Attraction> freeAttractions;
+		Promotion promotion;
+		BasePromotion basePromotion = DAOFactory.getPromotionDAO().find(id);
+		
+		idsIncludedAttractions = DAOFactory.getPromotionDAO().findIdsIncluded(id);
+		
+		includedAttractions = new ArrayList<Attraction>();
+		for (int idAttraction : idsIncludedAttractions) {
+			Attraction attraction = DAOFactory.getAttractionDAO().find(idAttraction); 
+			includedAttractions.add(attraction);
 		}
-
+		
+		if (basePromotion.getType().equals("%")) {
+			
+			promotion = new PorcentualPromotion(
+					basePromotion.getId(),
+					basePromotion.getName(),
+					includedAttractions, 
+					basePromotion.getValue()
+					);
+			
+		} else if (basePromotion.getType().equals("$")) {
+			
+			promotion = new AbsolutePromotion(
+					basePromotion.getId(),
+					basePromotion.getName(),
+					includedAttractions, 
+					basePromotion.getValue()
+					);
+			
+		} else { 
+			
+			paidForAttractions = new ArrayList<Attraction>();
+			paidForAttractions.addAll(includedAttractions);
+			
+			idsFreeAttractions = DAOFactory.getPromotionDAO().findIdsFree(basePromotion.getId());
+			
+			freeAttractions = new ArrayList<Attraction>();
+			for (int idAttraction : idsFreeAttractions) {
+				Attraction attraction = DAOFactory.getAttractionDAO().find(idAttraction); 
+				freeAttractions.add(attraction);
+			}
+			
+			includedAttractions.addAll(freeAttractions);
+			
+			
+			promotion = new AxBPromotion(
+					basePromotion.getId(),
+					basePromotion.getName(),
+					includedAttractions, 
+					paidForAttractions
+					);
+			
+		}
+		
 		return promotion;
 	}
-
-	public Promotion update(Integer id, String name, Integer cost, Double duration, Integer capacity) {
-
-		PromotionDAO promotionDAO = DAOFactory.getPromotionDAO();
-		Promotion promotion = promotionDAO.find(id);
-
-		promotion.setName(name);
-		promotion.setCost(cost);
-		promotion.setDuration(duration);
-		promotion.setCapacity(capacity);
-
-		if (promotion.isValid()) {
-			promotionDAO.update(promotion);
-			// XXX: si no devuelve "1", es que hubo más errores
-		}
-
-		return promotion;
-	}
-
-	public void delete(Integer id) {
-		Promotion promotion = new Promotion(id, null, null, null, null);
-
-		PromotionDAO promotionDAO = DAOFactory.getPromotionDAO();
-		promotionDAO.delete(promotion);
-	}
-
-	public Promotion find(Integer id) {
-		return DAOFactory.getPromotionDAO().find(id);
-	}
+	
+//	public Promotion create(String name, Double cost, Double duration, Integer capacity) {
+//
+//		Promotion promotion = new Promotion(name, cost, duration, capacity);
+//
+//		if (promotion.isValid()) {
+//			PromotionDAO promotionDAO = DAOFactory.getPromotionDAO();
+//			promotionDAO.insert(promotion);
+//			// XXX: si no devuelve "1", es que hubo más errores
+//		}
+//
+//		return promotion;
+//	}
+//
+//	public Promotion update(Integer id, String name, Integer cost, Double duration, Integer capacity) {
+//
+//		PromotionDAO promotionDAO = DAOFactory.getPromotionDAO();
+//		Promotion promotion = promotionDAO.find(id);
+//
+//		promotion.setName(name);
+//		promotion.setCost(cost);
+//		promotion.setDuration(duration);
+//		promotion.setCapacity(capacity);
+//
+//		if (promotion.isValid()) {
+//			promotionDAO.update(promotion);
+//			// XXX: si no devuelve "1", es que hubo más errores
+//		}
+//
+//		return promotion;
+//	}
+//
+//	public void delete(Integer id) {
+//		Promotion promotion = new Promotion(id, null, null, null, null);
+//
+//		PromotionDAO promotionDAO = DAOFactory.getPromotionDAO();
+//		promotionDAO.delete(promotion);
+//	}
+//
+//	public Promotion find(Integer id) {
+//		return DAOFactory.getPromotionDAO().find(id);
+//	}
 
 }

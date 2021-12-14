@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.BasePromotion;
-import model.Promotion;
 import persistence.BasePromotionDAO;
 import persistence.commons.ConnectionProvider;
 import persistence.commons.MissingDataException;
@@ -71,7 +70,7 @@ public class BasePromotionDAOImpl implements BasePromotionDAO {
 			int i = 1;
 			statement.setString(i++, promotion.getName());
 			statement.setString(i++, promotion.getType());
-			statement.setDouble(i++, promotion.getCost());
+			statement.setDouble(i++, promotion.getValue());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -90,7 +89,7 @@ public class BasePromotionDAOImpl implements BasePromotionDAO {
 			int i = 1;
 			statement.setString(i++, promotion.getName());
 			statement.setString(i++, promotion.getType());
-			statement.setDouble(i++, promotion.getCost());
+			statement.setDouble(i++, promotion.getValue());
 			int rows = statement.executeUpdate();
 
 			return rows;
