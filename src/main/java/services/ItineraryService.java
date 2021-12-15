@@ -1,14 +1,18 @@
 package services;
 
-import java.util.List;
+import java.sql.SQLException;
+import java.util.*;
 
 import model.*;
+import persistence.commons.DAOFactory;
 
 public class ItineraryService {
 
-	public List<Itinerary> list() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public List<Offer> list() throws SQLException {
+		List<Offer> offers = DAOFactory.getItineraryDAO().findAll();
+
+		return offers;
 	}
 
 }

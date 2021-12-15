@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Offer;
 import model.Promotion;
 import services.*;
 
@@ -28,9 +29,9 @@ public class ListItineraryServlet extends HttpServlet implements Servlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		List<Promotion> itinerarys;
+			throws ServletException, IOException {		
 		try {
+			List<Offer> itinerarys;
 			itinerarys = itineraryService.list();
 			req.setAttribute("itinerarys", itinerarys);
 

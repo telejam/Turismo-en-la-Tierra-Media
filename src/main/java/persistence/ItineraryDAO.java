@@ -1,9 +1,12 @@
 package persistence;
 
-import model.User;
-import persistence.commons.GenericDAO;
+import java.util.List;
 
-public interface ItineraryDAO extends GenericDAO<User> {
+import model.Offer;
 
-	
+public interface ItineraryDAO  {
+
+	public List<Offer> findByIdUser(int id_user);
+	public List<Offer> findAll();
+	public int insert(int id_offer, String type_offer, int id_user);
 }
