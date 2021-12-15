@@ -12,10 +12,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Offer;
-import model.Promotion;
 import services.*;
 
-@WebServlet("/itinerary/index.do")
+@WebServlet("/itineraries/index.do")
 public class ListItineraryServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = -8346640902238722429L;

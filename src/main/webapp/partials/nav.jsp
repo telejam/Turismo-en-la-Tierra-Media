@@ -22,7 +22,7 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TierraMedia3/promotions/index.do">Promociones</a></li>
 						<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/TierraMedia3/itinerary/index.do">Itinerario</a></li>
+						aria-current="page" href="/TierraMedia3/itineraries/index.do">Itinerario</a></li>
 					<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/TierraMedia3/users/index.do">Usuarios</a></li>
 				</c:if>
