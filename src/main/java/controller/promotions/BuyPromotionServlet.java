@@ -1,7 +1,6 @@
-package controller.offers;
+package controller.promotions;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
@@ -12,40 +11,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.User;
 import persistence.commons.DAOFactory;
-import services.BuyAttractionService;
 import services.BuyPromotionService;
 
-@WebServlet("/offers/buy.do")
-public class BuyOfferServlet extends HttpServlet {
+@WebServlet("/promotions/buy.do")
+public class BuyPromotionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3455721046062278592L;
+	private BuyPromotionService buyPromotionService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
+		this.buyPromotionService = new BuyPromotionService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		Integer attractionId = Integer.parseInt(req.getParameter("id"));
 		User user = (User) req.getSession().getAttribute("user");
-		Map<String, String> errors = null;
+		Map<String, String> errors = buyPromotionService.buy(user.getId(), attractionId);
 		
-		if (req.getParameter("id") == "A") { 
-			BuyAttractionService buyAttractionService = new BuyAttractionService();
-			Integer attractionId = Integer.parseInt(req.getParameter("id"));
-			try {
-				errors = buyAttractionService.buy(user.getId(), attractionId);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			BuyPromotionService buyPromotionService = new BuyPromotionService();
-			Integer promotionId = Integer.parseInt(req.getParameter("id"));
-			errors = buyPromotionService.buy(user.getId(), promotionId);
-		}
-
 		User user2 = DAOFactory.getUserDAO().find(user.getId());
 		req.getSession().setAttribute("user", user2);
 		
@@ -57,7 +43,7 @@ public class BuyOfferServlet extends HttpServlet {
 		}
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/offers/index.do");
+				.getRequestDispatcher("/promotions/index.do");
 		dispatcher.forward(req, resp);
 	}
 }

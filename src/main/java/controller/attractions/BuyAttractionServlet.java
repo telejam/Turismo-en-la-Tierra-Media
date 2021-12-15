@@ -1,6 +1,7 @@
 package controller.attractions;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
@@ -30,13 +31,19 @@ public class BuyAttractionServlet extends HttpServlet {
 
 		Integer attractionId = Integer.parseInt(req.getParameter("id"));
 		User user = (User) req.getSession().getAttribute("user");
-		Map<String, String> errors = buyAttractionService.buy(user.getId(), attractionId);
+		Map<String, String> errors = null;
+		try {
+			errors = buyAttractionService.buy(user.getId(), attractionId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		User user2 = DAOFactory.getUserDAO().find(user.getId());
 		req.getSession().setAttribute("user", user2);
 		
 		if (errors.isEmpty()) {
-			req.setAttribute("success", "¡Gracias por comprar!");
+			req.setAttribute("success", "Â¡Gracias por comprar!");
 		} else {
 			req.setAttribute("errors", errors);
 			req.setAttribute("flash", "No ha podido realizarse la compra");
