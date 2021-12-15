@@ -34,7 +34,7 @@
 		<c:if test="${user.isAdmin()}">
 			<div class="mb-3">
 				<a href="/turismo/promotions/create.do" class="btn btn-primary"
-					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción
+					role="button"> <i class="bi bi-plus-lg"></i> Nueva Promoción
 				</a>
 			</div>
 		</c:if>
@@ -59,7 +59,8 @@
 						<td><c:out value="${promotion.duration}"></c:out></td>
 						<td><c:out value="${promotion.capacity}"></c:out></td>
 
-						<td><c:if test="${user.admin}">
+						<td>
+							<c:if test="${user.isAdmin()}">
 								<a href="/turismo/promotions/edit.do?id=${promotion.id}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
@@ -79,8 +80,9 @@
 										<a href="#" class="btn btn-secondary rounded disabled"
 											role="button">No se puede comprar</a>
 									</c:otherwise>
-								</c:choose></td>
+								</c:choose>
 							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

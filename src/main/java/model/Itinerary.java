@@ -2,60 +2,38 @@ package model;
 
 
 import java.sql.*;
-import java.text.*;
 import java.util.*;
 
+import persistence.commons.DAOFactory;
 
 public class Itinerary {
 
+	private List<Offer> offers;
+	private Double time = 0.0;
+	private Double coins = 0.0;
 
-	private ArrayList<Offer> offers = new ArrayList<Offer>();
-	private User user;
-	private double time = 0;
-	private double coins = 0;
-
-	public Itinerary(User user) throws SQLException {
-		this.user = user;
-		itinerary = DAOFactory.getItinerarioDAO().findByIdUser(user.getId());
+	public Itinerary(int id) {
+		this.offers = DAOFactory.getItineraryDAO().findByIdUser(id);
+		for (Offer offer : offers) {
+		    this.time += offer.getDuration();
+		    this.coins +=offer.getCost();
+		}
 	}
-
-
-
 
 	public boolean isLoaded (Offer offer) {
 		boolean loaded = false;
-		for (Offer offer : offer.getContent()) {
-			if (offer.contains(offer)) {
+		for (Offer item : offers) {
+			if (item.equals(offer) || item.getContent().contains(offer)) {
 				loaded = true;
 			}
 		}
 		return loaded;
 	}
 
- 
-	
-
-	
-/*
 	public void add(Offer offer) throws SQLException {
-		String tipo;
-
-		if (offer.getContent().size()>1) {
-			tipo = "P";
-		}  else { 
-			tipo = "A";
-		}
-		DAOFactory.getItinerarioDAO().insert(offer.getId(), tipo, user.getId());
-
-		for (Attraction attraction : offer.getContent()) {
-			attractiones.add(attraction);
-	    }
-
+		offers.add(offer);
 	    this.time += offer.getDuration();
 	    this.coins +=offer.getCost();
-
-		
 	}
-   */
 }
 

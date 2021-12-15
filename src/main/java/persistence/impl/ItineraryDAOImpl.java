@@ -13,6 +13,7 @@ import services.*;
 public class ItineraryDAOImpl implements ItineraryDAO  {
 
 
+	@Override
 	public int insert(int id_offer, String type_offer, int id_user) {
 		int rows = 0;
 		try {
@@ -32,52 +33,45 @@ public class ItineraryDAOImpl implements ItineraryDAO  {
 			e.printStackTrace();
 		}
 		return rows;
-
-
 	}
 
 	
+	@Override
 	public List<Offer> findAll() {
+		List<Offer> offers = new LinkedList<Offer>();
+		Connection connection;
+		String sql = "SELECT * FROM ITINERARY";
 		try {
-			String sql = "SELECT * FROM ITINERARY";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
+			connection =  ConnectionProvider.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();
 
-			List<Offer> offers = new LinkedList<Offer>();
 			while (results.next()) {
-				offers.add(toOffers(results));
+				offers.add(toOffer(results));
 			}
 
-			return offers;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+		return offers;
 	}
 	
-	public ArrayList<Offer> findByIdUser(int id_user) {
-		ArrayList<Offer> offers = null;
+	@Override
+	public List<Offer> findByIdUser(int id_user) {
+		List<Offer> offers = new LinkedList<Offer>();
+		Connection connection;
+		String sql = "SELECT * FROM itinerary  WHERE id_user = ?";
 		try {
-			Connection connection;
 			connection = ConnectionProvider.getConnection();
-			String sql = "SELECT * FROM itinerary  WHERE id_user = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, id_user);
 
-			ResultSet result = statement.executeQuery();
-			PromotionService promotionService = new PromotionService();
-			
-			//AttractionService attractionService = new AttractionService();
-			
-			 offers = new ArrayList<Offer>();
+			ResultSet results = statement.executeQuery();
 
-			while (result.next()) {
-				if(result.getString("offer_type") == "P") {
-					offers.add(promotionService.find(result.getInt("offer_id")));
-				}else  {
-					// offers.add(attractionService.find(result.getInt("offer_id")));				
-				}			
+			while (results.next()) {
+				offers.add(toOffer(results));
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,19 +79,22 @@ public class ItineraryDAOImpl implements ItineraryDAO  {
 		
 		return offers;
 	}
-/*
-	private Attraction toAttraction(ResultSet result) throws SQLException {
 
-	    int id = result.getInt("id");
-		String name = result.getString("name");
-		double cost = result.getDouble("cost");
-		double duration = result.getDouble("duration");
-		int capacity = result.getInt("capacity");
-
-
-
-
-		return new Attraction(id, name, cost, duration, capacity);
+	private Offer toOffer(ResultSet results) {
+		PromotionService promotionService = new PromotionService();
+		AttractionService attractionService = new AttractionService();
+		Offer offer = null; 
+		try {
+			if(results.getString("offer_type") == "P") {
+				offer = promotionService.find(results.getInt("offer_id"));
+			}else  {
+				offer = attractionService.find(results.getInt("offer_id"));				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+		return offer;
 	}
-	*/
+	
 }

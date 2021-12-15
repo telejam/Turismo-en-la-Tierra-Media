@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public class User {
 	private Double coins;
 	private Double time;
 	private HashMap<String, String> errors;
-	//private Itinerary itinerary = new Itinerary(this.id);
+	private Itinerary itinerary = new Itinerary(this.id);
 
 	public User(Integer id, String username, String password, Double coins, Double time, Boolean admin) {
 		super();
@@ -24,17 +25,15 @@ public class User {
 		this.time = time;
 		this.admin = admin;
 	}
-/*
- * 
-	
-	public boolean isLoad(Offer offer){
-	return itinerary.isLoad(offer);
- */
- 
-	public void addToItinerary(Offer offer) {
+
+	public boolean isLoaded(Offer offer){
+		return itinerary.isLoaded(offer);
+	}
+
+	public void addToItinerary(Offer offer) throws SQLException {
 		this.coins -= offer.getCost();
 		this.time -= offer.getDuration();
-		//itinerary.add(offer);
+		itinerary.add(offer);
 	}
 
 	public boolean canAfford(Offer offer) {
