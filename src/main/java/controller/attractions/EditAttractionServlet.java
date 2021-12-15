@@ -47,7 +47,7 @@ public class EditAttractionServlet extends HttpServlet {
 		Attraction attraction = attractionService.update(id, name, cost, duration, capacity);
 
 		if (attraction.isValid()) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+			resp.sendRedirect("/TierraMedia3/attractions/index.do");
 		} else {
 			req.setAttribute("attraction", attraction);
 

@@ -41,7 +41,7 @@ public class CreateAttractionServlet extends HttpServlet {
 		Attraction attraction = attractionService.create(name, cost, duration, capacity);
 		
 		if (attraction.isValid()) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+			resp.sendRedirect("/TierraMedia3/attractions/index.do");
 		} else {
 			req.setAttribute("attraction", attraction);
 
