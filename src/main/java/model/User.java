@@ -13,6 +13,7 @@ public class User {
 	private Double coins;
 	private Double time;
 	private HashMap<String, String> errors;
+	//private Itinerary itinerary = new Itinerary(this.id);
 
 	public User(Integer id, String username, String password, Double coins, Double time, Boolean admin) {
 		super();
@@ -28,19 +29,20 @@ public class User {
 	
 	public boolean isLoad(Offer offer){
 	return itinerary.isLoad(offer);
+ */
  
 	public void addToItinerary(Offer offer) {
 		this.coins -= offer.getCost();
 		this.time -= offer.getDuration();
 		//itinerary.add(offer);
 	}
-*/
-	public boolean canAfford(Attraction attraction) {
-		return attraction.getCost() <= this.coins;
+
+	public boolean canAfford(Offer offer) {
+		return offer.getCost() <= this.coins;
 	}
 
-	public boolean canAttend(Attraction attraction) {
-		return attraction.getDuration() <= this.time;
+	public boolean canAttend(Offer offer) {
+		return offer.getDuration() <= this.time;
 	}
 
 	public boolean checkPassword(String password) {
