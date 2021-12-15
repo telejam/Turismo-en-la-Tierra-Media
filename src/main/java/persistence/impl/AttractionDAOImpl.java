@@ -4,34 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.AbsolutePromotion;
 import model.Attraction;
-import model.AxBPromotion;
-import model.BasePromotion;
-import model.Offer;
-import model.PorcentualPromotion;
-import model.Promotion;
 import persistence.AttractionDAO;
 import persistence.commons.ConnectionProvider;
-import persistence.commons.DAOFactory;
 import persistence.commons.MissingDataException;
 
-public class AttractionDAOImpl implements AttractionDAO,Offer {
+public class AttractionDAOImpl implements AttractionDAO {
 
+	@Override
 	public List<Attraction> findAll() {
 		try {
 			String sql = "SELECT * FROM ATTRACTIONS";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
+			ResultSet results = statement.executeQuery();
 
 			List<Attraction> attractions = new LinkedList<Attraction>();
-			while (resultados.next()) {
-				attractions.add(toAttraction(resultados));
+			while (results.next()) {
+				attractions.add(toAttraction(results));
 			}
 
 			return attractions;
@@ -49,15 +42,8 @@ public class AttractionDAOImpl implements AttractionDAO,Offer {
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
 
-			Attraction attraction = new Attraction
-					(
-					result.getString(1),
-					result.getDouble(2),
-					result.getDouble(3),
-					result.getInt(4));
-
+			Attraction attraction = toAttraction(result);
 			
-
 			return attraction;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -69,10 +55,11 @@ public class AttractionDAOImpl implements AttractionDAO,Offer {
 	private Attraction toAttraction(ResultSet attractionRegister) throws SQLException {
 		return new Attraction
 				(
-				attractionRegister.getString(1),
-				attractionRegister.getDouble(2),
-				attractionRegister.getDouble(3),
-				attractionRegister.getInt(4)
+						attractionRegister.getInt(1),
+						attractionRegister.getString(2),
+						attractionRegister.getDouble(3),
+						attractionRegister.getDouble(4),
+						attractionRegister.getInt(5)
 				);
 	}
     

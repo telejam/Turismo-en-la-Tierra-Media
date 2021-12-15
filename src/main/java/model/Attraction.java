@@ -1,9 +1,11 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Attraction {
+public class Attraction implements Offer {
 
 	private Integer id;
 	private String name;
@@ -52,22 +54,27 @@ public class Attraction {
 		return errors;
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public Double getCost() {
 		return cost;
 	}
@@ -76,6 +83,7 @@ public class Attraction {
 		this.cost = cost;
 	}
 
+	@Override
 	public Double getDuration() {
 		return duration;
 	}
@@ -84,6 +92,7 @@ public class Attraction {
 		this.duration = duration;
 	}
 
+	@Override
 	public Integer getCapacity() {
 		return capacity;
 	}
@@ -98,14 +107,21 @@ public class Attraction {
 				+ capacity + "]";
 	}
 
+	@Override
 	public boolean canHost(int i) {
 		return capacity >= i;
 	}
 
+	@Override
 	public void host(int i) {
 		this.capacity -= i;
 	}
 
-	
-	
+
+	@Override
+	public List<Attraction> getContent() {
+        List<Attraction> content = new ArrayList<Attraction>();
+        content.add(this);
+        return content;
+	}
 }
