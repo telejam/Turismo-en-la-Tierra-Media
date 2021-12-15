@@ -4,12 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.AbsolutePromotion;
 import model.Attraction;
+import model.AxBPromotion;
+import model.BasePromotion;
+import model.PorcentualPromotion;
+import model.Promotion;
 import persistence.AttractionDAO;
 import persistence.commons.ConnectionProvider;
+import persistence.commons.DAOFactory;
 import persistence.commons.MissingDataException;
 
 public class AttractionDAOImpl implements AttractionDAO {
@@ -33,19 +40,21 @@ public class AttractionDAOImpl implements AttractionDAO {
 	}
 
 	@Override
-	public Attraction find(Integer id) {
+	public Attraction find (Integer id){
 		try {
-			String sql = "SELECT * FROM ATTRACTIONS WHERE id = ?";
+			String sql = "SELECT * FROM ATTRACTIONS WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
-			
-			ResultSet resultados = statement.executeQuery();
+			ResultSet result = statement.executeQuery();
 
-			Attraction attraction = null;
-			if (resultados.next()) {
-				attraction = toAttraction(resultados);
-			}
+			Attraction attraction = new Attraction(
+					result.getString(1),
+					result.getDouble(2),
+					result.getDouble(3),
+					result.getInt(4));
+
+			
 
 			return attraction;
 		} catch (Exception e) {
@@ -53,11 +62,19 @@ public class AttractionDAOImpl implements AttractionDAO {
 		}
 	}
 	
+	
+	
 	private Attraction toAttraction(ResultSet attractionRegister) throws SQLException {
-		return new Attraction(attractionRegister.getInt(1), attractionRegister.getString(2),
-				attractionRegister.getDouble(3), attractionRegister.getDouble(4), attractionRegister.getInt(5));
+		return new Attraction
+				(
+				attractionRegister.getString(1),
+				attractionRegister.getDouble(2),
+				attractionRegister.getDouble(3),
+				attractionRegister.getInt(4)
+				);
 	}
-
+    
+	
 	@Override
 	public int insert(Attraction attraction) {
 		try {
@@ -90,7 +107,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 			statement.setDouble(i++, attraction.getCost());
 			statement.setDouble(i++, attraction.getDuration());
 			statement.setInt(i++, attraction.getCapacity());
-			statement.setInt(i++, attraction.getId());
+		    statement.setInt(i++, attraction.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -115,22 +132,16 @@ public class AttractionDAOImpl implements AttractionDAO {
 		}
 	}
 
+
+	
+
 	@Override
 	public int countAll() {
-		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM ATTRACTIONS";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-
-			resultados.next();
-			int total = resultados.getInt("TOTAL");
-
-			return total;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+	
 
 
 
