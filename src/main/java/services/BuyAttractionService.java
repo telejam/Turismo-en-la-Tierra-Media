@@ -1,5 +1,6 @@
 package services;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +12,11 @@ import persistence.commons.DAOFactory;
 
 public class BuyAttractionService {
 
+	ItineraryService itineraryService = new ItineraryService();
 	AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
 	UserDAO userDAO = DAOFactory.getUserDAO();
 
-	public Map<String, String> buy(Integer userId, Integer attractionId) {
+	public Map<String, String> buy(Integer userId, Integer attractionId) throws SQLException {
 		Map<String, String> errors = new HashMap<String, String>();
 
 		User user = userDAO.find(userId);
@@ -31,9 +33,10 @@ public class BuyAttractionService {
 		}
 
 		if (errors.isEmpty()) {
-			//user.addToItinerary(attraction);
+			user.addToItinerary(attraction);
 			attraction.host(1);
 
+			itineraryService.insert(attraction);
 			attractionDAO.update(attraction);
 			userDAO.update(user);
 		}

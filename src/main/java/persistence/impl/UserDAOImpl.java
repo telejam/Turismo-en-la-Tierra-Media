@@ -15,6 +15,7 @@ import persistence.commons.MissingDataException;
 
 public class UserDAOImpl implements UserDAO {
 
+	@Override
 	public int insert(User user) {
 		try {
 			String sql = "INSERT INTO USERS (USERNAME, PASSWORD, COINS, TIME) VALUES (?, ?, ?, ?)";
@@ -34,6 +35,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public int update(User user) {
 		try {
 			String sql = "UPDATE USERS SET USERNAME=?, PASSWORD=?, COINS = ?, TIME = ? WHERE ID = ?";
@@ -53,6 +55,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public int delete(User user) {
 		try {
 			String sql = "DELETE FROM USERS WHERE ID = ?";
@@ -69,6 +72,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public User findByUsername(String username) {
 		try {
 			String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
@@ -90,6 +94,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public User find(Integer id) {
 		try {
 			String sql = "SELECT * FROM USERS WHERE ID = ?";
@@ -110,6 +115,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public int countAll() {
 		try {
 			String sql = "SELECT COUNT(1) AS TOTAL FROM USERS";
@@ -126,6 +132,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public List<User> findAll() {
 		try {
 			String sql = "SELECT * FROM USERS";

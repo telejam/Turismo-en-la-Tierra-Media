@@ -14,16 +14,16 @@ public class User {
 	private Double coins;
 	private Double time;
 	private HashMap<String, String> errors;
-	private Itinerary itinerary = new Itinerary(this.id);
+	private Itinerary itinerary;
 
 	public User(Integer id, String username, String password, Double coins, Double time, Boolean admin) {
-		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.coins = coins;
 		this.time = time;
 		this.admin = admin;
+		itinerary = new Itinerary(this.id);
 	}
 
 	public boolean isLoaded(Offer offer){
