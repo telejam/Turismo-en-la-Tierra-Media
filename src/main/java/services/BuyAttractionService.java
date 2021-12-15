@@ -36,7 +36,7 @@ public class BuyAttractionService {
 			user.addToItinerary(attraction);
 			attraction.host(1);
 
-			itineraryService.insert(attraction);
+			itineraryService.insert(attraction, user);
 			attractionDAO.update(attraction);
 			userDAO.update(user);
 		}

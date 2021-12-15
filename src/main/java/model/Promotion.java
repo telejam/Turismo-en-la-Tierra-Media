@@ -1,14 +1,19 @@
 package model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public abstract class Promotion implements Offer {
 
 	private Integer id;
 	private String name;
+	private Double cost;
 	protected List<Attraction> attractions;
 
+	private Map<String, String> errors;
+	
 	public Promotion(Integer id, String name, List<Attraction> attractions) {
 		this.id = id;
 		this.name = name;
@@ -93,5 +98,23 @@ public abstract class Promotion implements Offer {
 		Promotion other = (Promotion) obj;
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
+
+	public boolean isValid() {
+		validate();
+		return errors.isEmpty();
+	}
+	
+	public void validate() {
+		errors = new HashMap<String, String>();
+
+		if (cost < 0) {
+			errors.put("cost", "Debe ser mayor o igual a cero");
+		}
+	}
+	
+	public Map<String, String> getErrors() {
+		return errors;
+	}
+
 
 }

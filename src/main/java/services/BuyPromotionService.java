@@ -37,7 +37,7 @@ public class BuyPromotionService {
 			user.addToItinerary(promotion);
 			promotion.host(1);
 			
-			itineraryService.insert(promotion);
+			itineraryService.insert(promotion, user);
 			for (Attraction attraction : promotion.getContent()) {
 				DAOFactory.getAttractionDAO().update(attraction);
 			}
