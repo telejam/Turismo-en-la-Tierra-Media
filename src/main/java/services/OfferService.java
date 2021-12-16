@@ -13,10 +13,15 @@ public class OfferService {
 
 	public List<Offer> list() throws SQLException {
 		List<Offer> offers = new ArrayList<Offer>();
+		List<Offer> offersNotBuyed = new ArrayList<Offer>();
 		
 		offers.addAll(promotionService.list());
 		offers.addAll(DAOFactory.getAttractionDAO().findAll());
     	
+		for (Offer offer : offers) {
+			if (true) {}
+		}
+		
 		Collections.sort(offers, new OffersComparator());
 
 		return offers;
