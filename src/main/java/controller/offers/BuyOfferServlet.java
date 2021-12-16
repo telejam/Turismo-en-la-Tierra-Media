@@ -1,7 +1,6 @@
 package controller.offers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
@@ -11,39 +10,30 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.User;
-import services.BuyAttractionService;
-import services.BuyPromotionService;
+import services.BuyOfferService;
 
 @WebServlet("/offers/buy.do")
 public class BuyOfferServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3455721046062278592L;
+	private BuyOfferService buyOfferService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-	}
+		this.buyOfferService = new BuyOfferService();
+}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		User user = (User) req.getSession().getAttribute("user");
 		Map<String, String> errors = null;
-		
-		if (req.getParameter("type") == "1") { 
-			BuyAttractionService buyAttractionService = new BuyAttractionService();
-			Integer attractionId = Integer.parseInt(req.getParameter("id"));
-			try {
-				errors = buyAttractionService.buy(user.getId(), attractionId);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			BuyPromotionService buyPromotionService = new BuyPromotionService();
-			Integer promotionId = Integer.parseInt(req.getParameter("id"));
-			errors = buyPromotionService.buy(user.getId(), promotionId);
-		}
+
+		User user = (User) req.getSession().getAttribute("user");
+		Integer id = Integer.parseInt(req.getParameter("id"));
+		Integer type = Integer.parseInt(req.getParameter("type"));
+
+		errors = buyOfferService.buy(user.getId(), id, type);
 
 		req.getSession().setAttribute("user", user);
 		
