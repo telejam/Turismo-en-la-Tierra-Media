@@ -6,12 +6,13 @@ import java.util.Collections;
 import java.util.List;
 
 import model.Offer;
+import model.User;
 import persistence.commons.DAOFactory;
 
 public class OfferService {
 	PromotionService promotionService = new PromotionService();
 
-	public List<Offer> list() throws SQLException {
+	public List<Offer> list(User user) throws SQLException {
 		List<Offer> offers = new ArrayList<Offer>();
 		List<Offer> offersNotBuyed = new ArrayList<Offer>();
 		
@@ -19,12 +20,14 @@ public class OfferService {
 		offers.addAll(DAOFactory.getAttractionDAO().findAll());
     	
 		for (Offer offer : offers) {
-			if (true) {}
+			if (!user.isLoaded(offer)) {
+				offersNotBuyed.add(offer);
+			}
 		}
 		
-		Collections.sort(offers, new OffersComparator());
+		Collections.sort(offersNotBuyed, new OffersComparator());
 
-		return offers;
+		return offersNotBuyed;
 	}
 
 }

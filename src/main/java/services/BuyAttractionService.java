@@ -32,9 +32,12 @@ public class BuyAttractionService {
 			errors.put("user", "No tienes tiempo suficiente");
 		}
 
+		System.out.println(attraction);
+		System.out.println(errors);
 		if (errors.isEmpty()) {
 			user.addToItinerary(attraction);
 			attraction.host(1);
+			System.out.println(attraction);
 
 			itineraryService.insert(attraction, user);
 			attractionDAO.update(attraction);

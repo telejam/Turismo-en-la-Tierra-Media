@@ -60,7 +60,7 @@ public class ItineraryDAOImpl implements ItineraryDAO  {
 	public List<Offer> findByIdUser(int id_user) {
 		List<Offer> offers = new LinkedList<Offer>();
 		Connection connection;
-		String sql = "SELECT * FROM itinerary  WHERE id_user = ?";
+		String sql = "SELECT * FROM ITINERARY WHERE USER_ID = ?";
 		try {
 			connection = ConnectionProvider.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
