@@ -12,6 +12,10 @@ public class UserService {
 		return DAOFactory.getUserDAO().findAll();
 	}
 
+	public User find(int id) {
+		return DAOFactory.getUserDAO().find(id);
+	}
+	
 	public User create(String username, String password, Double coins, Double time) {
 		User user = new User(-1, username, password, coins, time, false);
 		user.setPassword(password);

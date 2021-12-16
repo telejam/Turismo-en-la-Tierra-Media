@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Offer;
 import model.User;
 import services.OfferService;
+import services.UserService;
 
 @WebServlet("/offers/index.do")
 public class ListOfferServlet extends HttpServlet implements Servlet {
@@ -33,8 +34,11 @@ public class ListOfferServlet extends HttpServlet implements Servlet {
 		try {
 			List<Offer> offers;
 			User user = (User) req.getSession().getAttribute("user");
+			UserService userService = new UserService();
+			User tmp_user = userService.find(user.getId());
 			offers = offerService.list(user);
 			req.setAttribute("offers", offers);
+			req.setAttribute("user", tmp_user);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/offers/index.jsp");

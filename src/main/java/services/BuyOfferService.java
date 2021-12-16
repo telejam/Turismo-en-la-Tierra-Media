@@ -18,8 +18,6 @@ public class BuyOfferService {
 
 		Map<String, String> errors = new HashMap<String, String>();
 
-		System.out.println(userId + " " + offerId);
-
 		if (offerType == 1) { 
 			BuyAttractionService buyAttractionService = new BuyAttractionService();
 			try {
