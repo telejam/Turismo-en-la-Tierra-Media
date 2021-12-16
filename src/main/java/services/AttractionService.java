@@ -1,9 +1,14 @@
 package services;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Attraction;
+import model.BasePromotion;
+import model.Promotion;
 import persistence.AttractionDAO;
+import persistence.PromotionDAO;
 import persistence.commons.DAOFactory;
 
 public class AttractionService {
@@ -43,11 +48,28 @@ public class AttractionService {
 		return attraction;
 	}
 
-	public void delete(Integer id) {
+	public void delete(Integer id) throws SQLException {
 		Attraction attraction = new Attraction(id, null, null, null, null);
-
+		PromotionService promotionService = new PromotionService();
+		List<Promotion> promotions = new ArrayList<Promotion>();
+		List<Attraction> attractionsIncluded = new ArrayList<Attraction>();
+		
 		AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
+			
+		promotions =  promotionService.list();
+		
+		for (Promotion promotion : promotions) {
+			attractionsIncluded = promotion.getContent();
+			for (Attraction attractionIncluded : attractionsIncluded) {
+				if(id == attractionIncluded.getId()) {
+					promotionService.delete(promotion.getId());
+				}
+			}
+		}
+		
 		attractionDAO.delete(attraction);
+		
+		
 	}
 
 	public Attraction find(Integer id) {
