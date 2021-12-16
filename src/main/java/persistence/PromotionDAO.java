@@ -6,7 +6,7 @@ import java.util.List;
 import model.BasePromotion;
 import persistence.commons.GenericDAO;
 
-public interface BasePromotionDAO extends GenericDAO<BasePromotion> {
+public interface PromotionDAO extends GenericDAO<BasePromotion> {
 
 	public abstract List<Integer> findIdsIncluded(int id) throws SQLException;
 

@@ -9,16 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.BasePromotion;
-import persistence.BasePromotionDAO;
+import persistence.PromotionDAO;
 import persistence.commons.ConnectionProvider;
 import persistence.commons.MissingDataException;
 
-public class BasePromotionDAOImpl implements BasePromotionDAO {
+public class PromotionDAOImpl implements PromotionDAO {
 
 	@Override
 	public List<BasePromotion> findAll() {
 		try {
-			String sql = "SELECT * FROM PROMOTIONS";
+			String sql = "SELECT * FROM PROMOTIONS WHERE DISABLED = 0";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();
@@ -37,7 +37,7 @@ public class BasePromotionDAOImpl implements BasePromotionDAO {
 	@Override
 	public BasePromotion find(Integer id) {
 		try {
-			String sql = "SELECT * FROM PROMOTIONS WHERE id = ?";
+			String sql = "SELECT * FROM PROMOTIONS WHERE DISABLED = 0 AND ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
@@ -55,9 +55,15 @@ public class BasePromotionDAOImpl implements BasePromotionDAO {
 		}
 	}
 	
-	private BasePromotion toPromotion(ResultSet promotionRegister) throws SQLException {
-		return new BasePromotion(promotionRegister.getInt(1), promotionRegister.getString(2),
-				promotionRegister.getString(3), promotionRegister.getDouble(4), promotionRegister.getInt(5));
+	private BasePromotion toPromotion(ResultSet result) throws SQLException {
+		return new BasePromotion
+				(
+					result.getInt(1), 
+					result.getString(2),				
+					result.getString(3), 
+					result.getDouble(4), 
+					result.getInt(5)
+				);
 	}
 
 	@Override
@@ -101,7 +107,7 @@ public class BasePromotionDAOImpl implements BasePromotionDAO {
 	@Override
 	public int delete(BasePromotion promotion) {
 		try {
-			String sql = "DELETE FROM PROMOTIONS WHERE ID = ?";
+			String sql = "UPDATE PROMOTIONS SET DISABLED = 1 WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -117,7 +123,7 @@ public class BasePromotionDAOImpl implements BasePromotionDAO {
 	@Override
 	public int countAll() {
 		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM PROMOTIONS";
+			String sql = "SELECT COUNT(1) AS TOTAL FROM PROMOTIONS WHERE DISABLED = 0";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();

@@ -33,13 +33,13 @@
 			<form action="login" method="post">
 
 				<div class="mb-3">
-					<label for="username" class="form-label">Usuario</label> <input
-						class="form-control" name="username">
+					<label for="username" class="form-label">Usuario</label> 
+					<input class="form-control" name="username" autofocus>
 				</div>
 
 				<div class="mb-3">
-					<label for="password" class="form-label">Contraseña</label> <input
-						type="password" class="form-control" name="password">
+					<label for="password" class="form-label">Contraseña</label> 
+					<input type="password" class="form-control" name="password">
 				</div>
 
 				<div class="d-grid gap-2">

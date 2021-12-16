@@ -21,10 +21,10 @@
 						aria-current="page" href="/TierraMedia3/attractions/index.do">Atracciones</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TierraMedia3/promotions/index.do">Promociones</a></li>
-						<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TierraMedia3/itineraries/index.do">Itinerario</a></li>
 					<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/TierraMedia3/users/index.do">Usuarios</a></li>
+						aria-current="page" href="/TierraMedia3/users/index.do">Usuarios</a></li>
 				</c:if>
 			</ul>
 			<ul class="navbar-nav">

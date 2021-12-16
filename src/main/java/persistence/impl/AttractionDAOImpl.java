@@ -17,7 +17,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public List<Attraction> findAll() {
 		try {
-			String sql = "SELECT * FROM ATTRACTIONS";
+			String sql = "SELECT * FROM ATTRACTIONS WHERE DISABLED = 0";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet results = statement.executeQuery();
@@ -35,31 +35,34 @@ public class AttractionDAOImpl implements AttractionDAO {
 
 	@Override
 	public Attraction find (Integer id){
+		Connection conn = null;
+		Attraction attraction = null; 
 		try {
-			String sql = "SELECT * FROM ATTRACTIONS WHERE ID = ?";
-			Connection conn = ConnectionProvider.getConnection();
+			String sql = "SELECT * FROM ATTRACTIONS WHERE DISABLED = 0 AND ID = ?";
+			conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
 
-			Attraction attraction = toAttraction(result);
-			
-			return attraction;
+			if (result.next()) {
+				attraction = toAttraction(result);
+			}
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+		return attraction;
 	}
 	
 	
 	
-	private Attraction toAttraction(ResultSet attractionRegister) throws SQLException {
+	private Attraction toAttraction(ResultSet result) throws SQLException {
 		return new Attraction
 				(
-						attractionRegister.getInt(1),
-						attractionRegister.getString(2),
-						attractionRegister.getDouble(3),
-						attractionRegister.getDouble(4),
-						attractionRegister.getInt(5)
+						result.getInt(1),
+						result.getString(2),
+						result.getDouble(3),
+						result.getDouble(4),
+						result.getInt(5)
 				);
 	}
     
@@ -108,7 +111,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public int delete(Attraction attraction) {
 		try {
-			String sql = "UPDATE attractions SET DISABLED = 1 WHERE id = ?";
+			String sql = "UPDATE ATTRACTIONS SET DISABLED = 1 WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -128,7 +131,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public int countAll() {
 		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM ATTRACTIONS";
+			String sql = "SELECT COUNT(1) AS TOTAL FROM ATTRACTIONS WHERE DISABLED = 0";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();

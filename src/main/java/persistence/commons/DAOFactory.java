@@ -14,8 +14,8 @@ public class DAOFactory {
 		return new AttractionDAOImpl();
 	}
 	
-	public static BasePromotionDAO getPromotionDAO() {
-		return new BasePromotionDAOImpl();
+	public static PromotionDAO getPromotionDAO() {
+		return new PromotionDAOImpl();
 	}
 	public static ItineraryDAO  getItineraryDAO(){
 		return new ItineraryDAOImpl();

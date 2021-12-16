@@ -27,8 +27,8 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 
-		User user = userService.find(id);
-		req.setAttribute("user", user);
+		User tmp_user = userService.find(id);
+		req.setAttribute("tmp_user", tmp_user);
 
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/users/edit.jsp");

@@ -58,12 +58,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int delete(User user) {
 		try {
-			String sql = "DELETE FROM USERS WHERE ID = ?";
+			String sql = "UPDATE USERS SET DISABLED = 1 WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			//statement.setString(1, user.getUsername());
 			statement.setInt(1, user.getId());
+
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findByUsername(String username) {
 		try {
-			String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
+			String sql = "SELECT * FROM USERS WHERE DISABLED = 0 AND USERNAME = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, username);
@@ -97,7 +97,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User find(Integer id) {
 		try {
-			String sql = "SELECT * FROM USERS WHERE ID = ?";
+			String sql = "SELECT * FROM USERS WHERE DISABLED = 0 AND ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
@@ -118,7 +118,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int countAll() {
 		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM USERS";
+			String sql = "SELECT COUNT(1) AS TOTAL FROM USERS WHERE DISABLED = 0";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -135,7 +135,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<User> findAll() {
 		try {
-			String sql = "SELECT * FROM USERS";
+			String sql = "SELECT * FROM USERS WHERE DISABLED = 0";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();

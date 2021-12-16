@@ -18,7 +18,7 @@
 		</c:if>
 
 		<form action="/TierraMedia3/users/create.do" method="post">
-			<jsp:include page="/views/users/formNewUser.jsp"></jsp:include>
+			<jsp:include page="/views/users/form.jsp"></jsp:include>
 		</form>
 	</main>
 </body>
