@@ -21,29 +21,32 @@
 			<option value="Porcentual">Porcentual</option>
 			<option value="AxB">AxB</option>
 		</select>
-		<br><br>
+		<br>
 	
  <h6>Moria</h6>
+
 <div id="attraction1">
-    <input type="checkbox" value="2" name="included" /> Included<br/>
+    <input type="checkbox" value="1" name="included" /> Included<br/>
     <input type="checkbox" value="1" name="free" /> Free<br/>
    
 </div>
-
+<hr>
 <h6>Minas tirith</h6>
 <div id="attraction2">
     <input type="checkbox" value="2"  name="included" /> Included<br/>
     <input type="checkbox" value="2"  name="free" /> Free<br/>
    
 </div>
-
+<hr>
 <h6>Gondor</h6>
 <div id="attraction3">
     <input type="checkbox" value="3" name="included" /> Included<br/>
     <input type="checkbox" value="3" name="free" /> Free<br/>
 
 </div>
-        
+
+      <br> 
+      <div>  
 	<button type="submit" class="btn btn-primary">Guardar</button>
 	<a onclick="window.history.back();" class="btn btn-secondary"
 		role="button">Cancelar</a>
