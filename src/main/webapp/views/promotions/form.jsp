@@ -31,14 +31,14 @@
 </div>
 
 <h6>Minas tirith</h6>
-<div id="attraction1">
+<div id="attraction2">
     <input type="checkbox" value="2"  name="included" /> Included<br/>
     <input type="checkbox" value="2"  name="free" /> Free<br/>
    
 </div>
 
 <h6>Gondor</h6>
-<div id="attraction1">
+<div id="attraction3">
     <input type="checkbox" value="3" name="included" /> Included<br/>
     <input type="checkbox" value="3" name="free" /> Free<br/>
 
