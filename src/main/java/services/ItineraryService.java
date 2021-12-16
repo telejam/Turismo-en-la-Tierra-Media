@@ -16,12 +16,8 @@ public class ItineraryService {
 	}
 	
 	
-	
-	// el @ me lo dio como solucion el eclipse
-	@SuppressWarnings("null")
-	public void insert (Offer offer) throws SQLException {
+	public void insert (Offer offer, User user) throws SQLException {
 		String type_offer;
-		User user = null;
 
 		if (offer.getContent().size()>1) {
 			type_offer = "P";

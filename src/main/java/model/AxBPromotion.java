@@ -13,7 +13,7 @@ public class AxBPromotion extends Promotion {
 
 	@Override
 	public Double getCost() {
-		double cost = 0;
+		Double cost = 0.0;
 		for (Attraction attraction : attractionsToPay) {
 			cost += attraction.getCost();
 		}

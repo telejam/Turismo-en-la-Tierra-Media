@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.User;
-import persistence.commons.DAOFactory;
 import services.BuyAttractionService;
 import services.BuyPromotionService;
 
@@ -31,7 +30,7 @@ public class BuyOfferServlet extends HttpServlet {
 		User user = (User) req.getSession().getAttribute("user");
 		Map<String, String> errors = null;
 		
-		if (req.getParameter("id") == "A") { 
+		if (req.getParameter("type") == "1") { 
 			BuyAttractionService buyAttractionService = new BuyAttractionService();
 			Integer attractionId = Integer.parseInt(req.getParameter("id"));
 			try {
@@ -46,8 +45,7 @@ public class BuyOfferServlet extends HttpServlet {
 			errors = buyPromotionService.buy(user.getId(), promotionId);
 		}
 
-		User user2 = DAOFactory.getUserDAO().find(user.getId());
-		req.getSession().setAttribute("user", user2);
+		req.getSession().setAttribute("user", user);
 		
 		if (errors.isEmpty()) {
 			req.setAttribute("success", "¡Gracias por comprar!");

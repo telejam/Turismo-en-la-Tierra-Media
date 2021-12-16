@@ -42,7 +42,7 @@
 								<c:choose>
 									<c:when
 										test="${user.canAfford(offer) && user.canAttend(offer) && offer.canHost(1)}">
-										<a href="/TierraMedia3/offer/buy.do?id=${offer.id}"
+										<a href="/TierraMedia3/offers/buy.do?id=${offer.id}&type=${offer.getContent().size()}"
 											class="btn btn-success rounded" role="button">Comprar</a>
 									</c:when>
 									<c:otherwise>
