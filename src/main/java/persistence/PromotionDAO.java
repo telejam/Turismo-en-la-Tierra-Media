@@ -12,4 +12,9 @@ public interface PromotionDAO extends GenericDAO<BasePromotion> {
 
 	public abstract List<Integer> findIdsFree(int id) throws SQLException;
 
+	public abstract int getLastId();
+
+	public int insertIdIncluded(int promotionId, int attractionId) throws SQLException;
+	
+	public int insertIdFree(int promotionId, int attractionId) throws SQLException;
 }

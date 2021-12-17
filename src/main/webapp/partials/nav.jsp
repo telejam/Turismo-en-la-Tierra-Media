@@ -13,8 +13,6 @@
 				<c:if test="${!user.isAdmin()}">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TierraMedia3/offers/index.do">Ofertas</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/TierraMedia3/itineraries/index.do">Itinerario</a></li>
 				</c:if>
 				<c:if test="${user.isAdmin()}">
 					<li class="nav-item"><a class="nav-link active"
@@ -22,10 +20,10 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TierraMedia3/promotions/index.do">Promociones</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/TierraMedia3/itineraries/index.do">Itinerario</a></li>
-					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/TierraMedia3/users/index.do">Usuarios</a></li>
 				</c:if>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/TierraMedia3/itineraries/index.do">Itinerario</a></li>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">

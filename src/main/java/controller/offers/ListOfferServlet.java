@@ -32,13 +32,14 @@ public class ListOfferServlet extends HttpServlet implements Servlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			List<Offer> offers;
+
 			User user = (User) req.getSession().getAttribute("user");
 			UserService userService = new UserService();
 			User tmp_user = userService.find(user.getId());
-			offers = offerService.list(user);
-			req.setAttribute("offers", offers);
 			req.setAttribute("user", tmp_user);
+
+			List<Offer> offers = offerService.list(user);
+			req.setAttribute("offers", offers);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/offers/index.jsp");

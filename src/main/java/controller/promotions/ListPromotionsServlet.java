@@ -12,7 +12,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Promotion;
+import model.User;
 import services.PromotionService;
+import services.UserService;
 
 @WebServlet("/promotions/index.do")
 public class ListPromotionsServlet extends HttpServlet implements Servlet {
@@ -31,6 +33,12 @@ public class ListPromotionsServlet extends HttpServlet implements Servlet {
 			throws ServletException, IOException {
 		List<Promotion> promotions;
 		try {
+
+			User user = (User) req.getSession().getAttribute("user");
+			UserService userService = new UserService();
+			User tmp_user = userService.find(user.getId());
+			req.setAttribute("user", tmp_user);
+
 			promotions = promotionService.list();
 			req.setAttribute("promotions", promotions);
 

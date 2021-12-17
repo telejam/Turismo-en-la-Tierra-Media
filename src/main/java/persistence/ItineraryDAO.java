@@ -1,7 +1,6 @@
 package persistence;
 
 import java.util.List;
-
 import model.Offer;
 
 public interface ItineraryDAO  {

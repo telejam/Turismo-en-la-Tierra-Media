@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Offer;
+import model.User;
 import services.*;
 
 @WebServlet("/itineraries/index.do")
@@ -30,9 +31,19 @@ public class ListItinerariesServlet extends HttpServlet implements Servlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {		
 		try {
-			List<Offer> itineraries;
-			itineraries = itineraryService.list();
-			req.setAttribute("itinerarys", itineraries);
+
+			User user = (User) req.getSession().getAttribute("user");
+			UserService userService = new UserService();
+			User tmp_user = userService.find(user.getId());
+			req.setAttribute("user", tmp_user);
+
+			List<Offer> offers;
+			if (user.isAdmin()) {
+				offers = itineraryService.list();
+			}else {
+				offers = itineraryService.findByIdUser(user.getId());
+			}
+			req.setAttribute("offers", offers);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/itineraries/index.jsp");

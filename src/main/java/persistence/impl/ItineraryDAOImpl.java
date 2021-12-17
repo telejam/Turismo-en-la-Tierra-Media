@@ -85,7 +85,7 @@ public class ItineraryDAOImpl implements ItineraryDAO  {
 		AttractionService attractionService = new AttractionService();
 		Offer offer = null; 
 		try {
-			if(results.getString("offer_type") == "P") {
+			if(results.getString("offer_type").equals("P")) {
 				offer = promotionService.find(results.getInt("offer_id"));
 			}else  {
 				offer = attractionService.find(results.getInt("offer_id"));				

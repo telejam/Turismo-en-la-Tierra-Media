@@ -28,6 +28,12 @@ public class ListUsersServlet extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		User user = (User) req.getSession().getAttribute("user");
+
+		User tmp_user = userService.find(user.getId());
+		req.setAttribute("user", tmp_user);
+
 		List<User> users = userService.list();
 		req.setAttribute("users", users);
 

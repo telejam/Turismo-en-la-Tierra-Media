@@ -55,6 +55,26 @@ public class PromotionDAOImpl implements PromotionDAO {
 		}
 	}
 	
+	@Override
+	public int getLastId() {
+		try {
+			String sql = "SELECT MAX(ID) FROM PROMOTIONS";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			ResultSet result = statement.executeQuery();
+			
+			int id = 0;
+			if (result.next()) {
+				id = result.getInt(1);
+			}
+			
+			return id;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
 	private BasePromotion toPromotion(ResultSet result) throws SQLException {
 		return new BasePromotion
 				(
@@ -171,5 +191,33 @@ public class PromotionDAOImpl implements PromotionDAO {
 		
 	}
 
-
+	@Override
+	public int insertIdIncluded(int promotionId, int attractionId) throws SQLException {
+		
+		String sql = "INSERT INTO INCLUDED_ATRACTIONS SET PROMOTION_ID = ?, ATTRACTION_ID = ?";
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, promotionId); 
+		statement.setInt(2, attractionId); 
+		
+		int rows = statement.executeUpdate();
+		
+		return rows;
+		
+	}
+	
+	@Override
+	public int insertIdFree(int promotionId, int attractionId) throws SQLException {
+		
+		String sql = "INSERT INTO FREE_ATRACTIONS SET PROMOTION_ID = ?, ATTRACTION_ID = ?";
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, promotionId); 
+		statement.setInt(2, attractionId); 
+		
+		int rows = statement.executeUpdate();
+		
+		return rows;
+		
+	}
 }

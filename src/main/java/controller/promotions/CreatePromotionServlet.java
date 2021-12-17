@@ -1,6 +1,8 @@
 package controller.promotions;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,16 +40,22 @@ public class CreatePromotionServlet extends HttpServlet {
 		String[] included = req.getParameterValues("included");
 		String[] free = req.getParameterValues("free");
 		
-		Promotion promotion = promotionService.create(name, type, cost, included, free);
-		
-		if (promotion.isValid()) {
-			resp.sendRedirect("/promotions/index.do");
-		} else {
-			req.setAttribute("promotion", promotion);
+		Promotion promotion;
+		try {
+			promotion = promotionService.create(name, type, cost, included, free);
+			
+			if (promotion.isValid()) {
+				resp.sendRedirect("/promotions/index.do");
+			} else {
+				req.setAttribute("promotion", promotion);
 
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/promotions/create.jsp");
-			dispatcher.forward(req, resp);
+				RequestDispatcher dispatcher = getServletContext()
+						.getRequestDispatcher("/views/promotions/create.jsp");
+				dispatcher.forward(req, resp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

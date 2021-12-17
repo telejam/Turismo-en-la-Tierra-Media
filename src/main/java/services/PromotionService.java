@@ -42,7 +42,7 @@ public class PromotionService {
 			includedAttractions.add(attraction);
 		}
 		
-		if (basePromotion.getType().equals("%")) {
+		if (basePromotion.getType().equals("Porcentual")) {
 			
 			promotion = new PorcentualPromotion(
 					basePromotion.getId(),
@@ -51,7 +51,7 @@ public class PromotionService {
 					basePromotion.getValue()
 					);
 			
-		} else if (basePromotion.getType().equals("$")) {
+		} else if (basePromotion.getType().equals("Absoluta")) {
 			
 			promotion = new AbsolutePromotion(
 					basePromotion.getId(),
@@ -89,77 +89,25 @@ public class PromotionService {
 	}
 	
 
-	public Promotion create(String name, String type, Double cost, String[] included, String[] free) {
-
-		List<Integer> idsIncludedAttractions = null;
-		List<Integer> idsFreeAttractions = null;
-
+	public Promotion create(String name, String type, Double cost, String[] included, String[] free) throws SQLException {
+		
 		BasePromotion promotion = new BasePromotion(-1, name, type, cost, 0); 
 		DAOFactory.getPromotionDAO().insert(promotion);
+		int promotionId = DAOFactory.getPromotionDAO().getLastId();
 
 		for (int i = 0; i < included.length; i++) {
-			idsIncludedAttractions.add(Integer.parseInt(included[i]));
+			int attractionId = Integer.parseInt(included[i]);
+			DAOFactory.getPromotionDAO().insertIdIncluded(promotionId, attractionId);
 		} 
 
-		for (int i = 0; i < free.length; i++) {
-			idsFreeAttractions.add(Integer.parseInt(free[i]));
-		} 
-		
-		List<Attraction> includedAttractions;
-		List<Attraction> paidForAttractions;
-		List<Attraction> freeAttractions;
-		
-		
-		includedAttractions = new ArrayList<Attraction>();
-		for (int idAttraction : idsIncludedAttractions) {
-			Attraction attraction = DAOFactory.getAttractionDAO().find(idAttraction); 
-			includedAttractions.add(attraction);
+		if (type.equals("AxB")) {
+			for (int i = 0; i < free.length; i++) {
+				int attractionId = Integer.parseInt(free[i]);
+				DAOFactory.getPromotionDAO().insertIdFree(promotionId, attractionId);
+			} 
 		}
 		
-//		if (basePromotion.getType().equals("%")) {
-//			
-//			promotion = new PorcentualPromotion(
-//					basePromotion.getId(),
-//					basePromotion.getName(),
-//					includedAttractions, 
-//					basePromotion.getValue()
-//					);
-//			
-//		} else if (basePromotion.getType().equals("$")) {
-//			
-//			promotion = new AbsolutePromotion(
-//					basePromotion.getId(),
-//					basePromotion.getName(),
-//					includedAttractions, 
-//					basePromotion.getValue()
-//					);
-//			
-//		} else { 
-//			
-//			paidForAttractions = new ArrayList<Attraction>();
-//			paidForAttractions.addAll(includedAttractions);
-//			
-//			idsFreeAttractions = DAOFactory.getPromotionDAO().findIdsFree(basePromotion.getId());
-//			
-//			freeAttractions = new ArrayList<Attraction>();
-//			for (int idAttraction : idsFreeAttractions) {
-//				Attraction attraction = DAOFactory.getAttractionDAO().find(idAttraction); 
-//				freeAttractions.add(attraction);
-//			}
-//			
-//			includedAttractions.addAll(freeAttractions);
-//			
-//			
-//			promotion = new AxBPromotion(
-//					basePromotion.getId(),
-//					basePromotion.getName(),
-//					includedAttractions, 
-//					paidForAttractions
-//					);
-//			
-//		}
-		
-		return null;
+		return this.find(promotionId);
 	}
 
 //	public int update(Promotion promotion) {

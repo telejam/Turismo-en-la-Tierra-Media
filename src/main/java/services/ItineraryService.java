@@ -10,9 +10,7 @@ public class ItineraryService {
 
 	
 	public List<Offer> list() throws SQLException {
-		List<Offer> offers = DAOFactory.getItineraryDAO().findAll();
-
-		return offers;
+		return DAOFactory.getItineraryDAO().findAll();
 	}
 	
 	
@@ -26,6 +24,11 @@ public class ItineraryService {
 		}
 		DAOFactory.getItineraryDAO().insert(offer.getId(), type_offer, user.getId());
 
+	}
+
+
+	public List<Offer> findByIdUser(Integer id) {
+		return DAOFactory.getItineraryDAO().findByIdUser(id);
 	}
 }
 

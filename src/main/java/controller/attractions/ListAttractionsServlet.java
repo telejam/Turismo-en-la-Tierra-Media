@@ -11,7 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Attraction;
+import model.User;
 import services.AttractionService;
+import services.UserService;
 
 @WebServlet("/attractions/index.do")
 public class ListAttractionsServlet extends HttpServlet implements Servlet {
@@ -28,6 +30,12 @@ public class ListAttractionsServlet extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+
+		User user = (User) req.getSession().getAttribute("user");
+		UserService userService = new UserService();
+		User tmp_user = userService.find(user.getId());
+		req.setAttribute("user", tmp_user);
+
 		List<Attraction> attractions = attractionService.list();
 		req.setAttribute("attractions", attractions);
 
