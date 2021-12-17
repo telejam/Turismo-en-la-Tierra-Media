@@ -54,7 +54,7 @@ public class EditPromotionServlet extends HttpServlet {
 		Promotion promotion = promotionService.update(id, name, cost, duration, capacity);
 
 		if (promotion.isValid()) {
-			resp.sendRedirect("/turismo/promotions/index.do");
+			resp.sendRedirect("/TierraMedia3/promotions/index.do");
 		} else {
 			req.setAttribute("promotion", promotion);
 

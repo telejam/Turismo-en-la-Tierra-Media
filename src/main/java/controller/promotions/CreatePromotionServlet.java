@@ -41,7 +41,7 @@ public class CreatePromotionServlet extends HttpServlet {
 		Promotion promotion = promotionService.create(name, type, cost, included, free);
 		
 		if (promotion.isValid()) {
-			resp.sendRedirect("/Prueba-III/promotions/index.do");
+			resp.sendRedirect("/promotions/index.do");
 		} else {
 			req.setAttribute("promotion", promotion);
 
