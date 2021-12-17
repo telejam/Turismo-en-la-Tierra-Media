@@ -44,13 +44,13 @@ public class CreatePromotionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String name = req.getParameter("name");
 		String type = req.getParameter("type");
-		Double cost = Double.parseDouble(req.getParameter("cost"));
+		Double value = Double.parseDouble(req.getParameter("value"));
 		String[] included = req.getParameterValues("included");
 		String[] free = req.getParameterValues("free");
 		
 		BasePromotion promotion;
 		try {
-			promotion = promotionService.create(name, type, cost, included, free);
+			promotion = promotionService.create(name, type, value, included, free);
 			
 			if (promotion.isValid()) {
 				resp.sendRedirect("/TierraMedia3/promotions/index.do");

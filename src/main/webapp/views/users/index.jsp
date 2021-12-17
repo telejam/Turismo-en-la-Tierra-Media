@@ -85,7 +85,7 @@ h1{
 								</c:otherwise>
 							</c:choose>						
 						</td>
-						<td><c:if test="${user.admin && (!tmp_user.admin || tmp_user.id == user.id)}">
+						<td><c:if test="${user.admin && (!tmp_user.admin || tmp_user.id != user.id)}">
 								<a href="/TierraMedia3/users/edit.do?id=${tmp_user.id}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>

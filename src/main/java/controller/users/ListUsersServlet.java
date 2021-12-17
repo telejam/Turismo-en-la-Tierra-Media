@@ -30,9 +30,7 @@ public class ListUsersServlet extends HttpServlet implements Servlet {
 			throws ServletException, IOException {
 
 		User user = (User) req.getSession().getAttribute("user");
-
-		User tmp_user = userService.find(user.getId());
-		req.setAttribute("user", tmp_user);
+		req.setAttribute("user", user);
 
 		List<User> users = userService.list();
 		req.setAttribute("users", users);

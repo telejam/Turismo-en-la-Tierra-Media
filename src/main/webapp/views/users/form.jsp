@@ -11,8 +11,6 @@
 	<input class="form-control" type="number" id="coins" name="coins" placeholder="Ingrese un numero positivo"
 		required value="${tmp_user.coins}"></input>
 	<div class="invalid-feedback">
-	
-		<%--  <c:out value='${tmp_user.errors.get("coins")}'></c:out> --%>
 		<c:out value='${tmp_user.errors.get("coins")}'></c:out>
 	</div>
 </div>
@@ -31,7 +29,7 @@
 	<label for="password"
 		class='col-form-label ${tmp_user.errors.get("password") != null ? "is-invalid" : "" }'>Contraseña:</label>
 	<input class="form-control" id="password" name="password" placeholder="Ingrese 4 digitos alfa/numericos"
-		required value="${tmp_user.password}"></input>
+		required ></input>
 	<div class="invalid-feedback">
 		<c:out value='${tmp_user.errors.get("password")}'></c:out>
 	</div>

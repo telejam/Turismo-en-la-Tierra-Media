@@ -18,7 +18,7 @@
 		</c:if>
 
 		<form action="/TierraMedia3/users/edit.do" method="post">
-			<input type="hidden" name="id" value="${user.id}">
+			<input type="hidden" name="id" value="${tmp_user.id}">
 			<jsp:include page="/views/users/form.jsp"></jsp:include>
 		</form>
 	</main>
