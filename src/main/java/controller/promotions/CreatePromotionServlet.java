@@ -2,6 +2,7 @@ package controller.promotions;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,7 +10,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Promotion;
+import model.Attraction;
+import model.BasePromotion;
+import services.AttractionService;
 import services.PromotionService;
 
 @WebServlet("/promotions/create.do")
@@ -27,6 +30,11 @@ public class CreatePromotionServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		AttractionService attractionService = new AttractionService();
+		List<Attraction> attractions = attractionService.list();
+
+		req.setAttribute("attractions", attractions);
+		
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/promotions/create.jsp");
 		dispatcher.forward(req, resp);
@@ -40,15 +48,20 @@ public class CreatePromotionServlet extends HttpServlet {
 		String[] included = req.getParameterValues("included");
 		String[] free = req.getParameterValues("free");
 		
-		Promotion promotion;
+		BasePromotion promotion;
 		try {
 			promotion = promotionService.create(name, type, cost, included, free);
 			
 			if (promotion.isValid()) {
-				resp.sendRedirect("/promotions/index.do");
+				resp.sendRedirect("/TierraMedia3/promotions/index.do");
 			} else {
 				req.setAttribute("promotion", promotion);
 
+				AttractionService attractionService = new AttractionService();
+				List<Attraction> attractions = attractionService.list();
+
+				req.setAttribute("attractions", attractions);
+				
 				RequestDispatcher dispatcher = getServletContext()
 						.getRequestDispatcher("/views/promotions/create.jsp");
 				dispatcher.forward(req, resp);

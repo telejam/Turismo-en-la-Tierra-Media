@@ -116,6 +116,7 @@ public class PromotionDAOImpl implements PromotionDAO {
 			statement.setString(i++, promotion.getName());
 			statement.setString(i++, promotion.getType());
 			statement.setDouble(i++, promotion.getValue());
+			statement.setInt(i++, promotion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -159,7 +160,7 @@ public class PromotionDAOImpl implements PromotionDAO {
 
 	@Override
 	public List<Integer> findIdsIncluded(int id) throws SQLException {
-		String sql = "SELECT * FROM INCLUDED_ATRACTIONS WHERE PROMOTION_ID = ?";
+		String sql = "SELECT * FROM INCLUDED_ATTRACTIONS WHERE PROMOTION_ID = ?";
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setInt(1, id); 
@@ -194,7 +195,7 @@ public class PromotionDAOImpl implements PromotionDAO {
 	@Override
 	public int insertIdIncluded(int promotionId, int attractionId) throws SQLException {
 		
-		String sql = "INSERT INTO INCLUDED_ATRACTIONS SET PROMOTION_ID = ?, ATTRACTION_ID = ?";
+		String sql = "INSERT INTO INCLUDED_ATTRACTIONS (PROMOTION_ID, ATTRACTION_ID) VALUES (?, ?)";
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setInt(1, promotionId); 
@@ -209,7 +210,7 @@ public class PromotionDAOImpl implements PromotionDAO {
 	@Override
 	public int insertIdFree(int promotionId, int attractionId) throws SQLException {
 		
-		String sql = "INSERT INTO FREE_ATRACTIONS SET PROMOTION_ID = ?, ATTRACTION_ID = ?";
+		String sql = "INSERT INTO FREE_ATTRACTIONS (PROMOTION_ID, ATTRACTION_ID) VALUES (?, ?)";
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setInt(1, promotionId); 
@@ -220,4 +221,35 @@ public class PromotionDAOImpl implements PromotionDAO {
 		return rows;
 		
 	}
+
+	@Override
+	public int deleteIncludedById(Integer id) throws SQLException {
+		
+		String sql = "DELETE FROM INCLUDED_ATTRACTIONS WHERE PROMOTION_ID = ?";
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, id); 
+		
+		int rows = statement.executeUpdate();
+		
+		return rows;
+		
+	}
+	
+	@Override
+	public int deleteFreeById(Integer id) throws SQLException {
+		
+		String sql = "DELETE FROM FREE_ATTRACTIONS WHERE PROMOTION_ID = ?";
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, id); 
+		
+		int rows = statement.executeUpdate();
+		
+		return rows;
+		
+	}
+	
+
+
 }

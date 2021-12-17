@@ -1,11 +1,16 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BasePromotion {
 	private int id;
 	private String name;
 	private String type;
 	private double value;
 	private int disabled;
+	private Map<String, String> errors;
+	
 
 	public BasePromotion(int id, String name, String type, double value, int disabled) {
 		this.id = id;
@@ -53,6 +58,23 @@ public class BasePromotion {
 
 	public void setDisabled(int disabled) {
 		this.disabled = disabled;
+	}
+
+	public boolean isValid() {
+		validate();
+		return errors.isEmpty();
+	}
+	
+	public void validate() {
+		errors = new HashMap<String, String>();
+
+		if (value < 0) {
+			errors.put("cost", "Debe ser mayor o igual a cero");
+		}
+	}
+	
+	public Map<String, String> getErrors() {
+		return errors;
 	}
 
 

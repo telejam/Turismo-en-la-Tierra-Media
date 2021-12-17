@@ -17,4 +17,8 @@ public interface PromotionDAO extends GenericDAO<BasePromotion> {
 	public int insertIdIncluded(int promotionId, int attractionId) throws SQLException;
 	
 	public int insertIdFree(int promotionId, int attractionId) throws SQLException;
+
+	public int deleteIncludedById(Integer id) throws SQLException;
+
+	public int deleteFreeById(Integer id) throws SQLException;
 }

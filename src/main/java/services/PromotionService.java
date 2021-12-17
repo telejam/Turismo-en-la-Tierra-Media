@@ -25,6 +25,10 @@ public class PromotionService {
 		return promotions;
 	}
 
+	public BasePromotion findBase(Integer id) throws SQLException {
+		return DAOFactory.getPromotionDAO().find(id);
+	}
+	
 	public Promotion find(int id) throws SQLException {
 		List<Integer> idsIncludedAttractions;
 		List<Integer> idsFreeAttractions;
@@ -89,9 +93,9 @@ public class PromotionService {
 	}
 	
 
-	public Promotion create(String name, String type, Double cost, String[] included, String[] free) throws SQLException {
+	public BasePromotion create(String name, String type, Double value, String[] included, String[] free) throws SQLException {
 		
-		BasePromotion promotion = new BasePromotion(-1, name, type, cost, 0); 
+		BasePromotion promotion = new BasePromotion(-1, name, type, value, 0); 
 		DAOFactory.getPromotionDAO().insert(promotion);
 		int promotionId = DAOFactory.getPromotionDAO().getLastId();
 
@@ -107,29 +111,43 @@ public class PromotionService {
 			} 
 		}
 		
-		return this.find(promotionId);
+		return promotion;
 	}
 
-//	public int update(Promotion promotion) {
-//
-//		int rows;
-//
-//		promotion.setName(name);
-//		promotion.setCost(cost);
-//		promotion.setDuration(duration);
-//		promotion.setCapacity(capacity);
-//
-//		if (promotion.isValid()) {
-//			rows = promotionDAO.update(promotion);
-//			// XXX: si no devuelve "1", es que hubo más errores
-//		}
-//
-//		return rows;
-//	}
-//
+	public BasePromotion update(Integer id, String name, String type, Double value, String[] included, String[] free) throws SQLException {
+		
+		BasePromotion promotion = new BasePromotion(id, name, type, value, 0); 
+		DAOFactory.getPromotionDAO().update(promotion);
+		DAOFactory.getPromotionDAO().deleteIncludedById(id);
+		DAOFactory.getPromotionDAO().deleteFreeById(id);
+		
+		for (int i = 0; i < included.length; i++) {
+			int attractionId = Integer.parseInt(included[i]);
+			DAOFactory.getPromotionDAO().insertIdIncluded(id, attractionId);
+		} 
+		
+		if (type.equals("AxB")) {
+			for (int i = 0; i < free.length; i++) {
+				int attractionId = Integer.parseInt(free[i]);
+				DAOFactory.getPromotionDAO().insertIdFree(id, attractionId);
+			} 
+		}
+		
+		return promotion;
+	}
+	
+
 	public void delete(Integer id) {
 		BasePromotion promotion = new BasePromotion(id, "", "", 0, 0);
 		DAOFactory.getPromotionDAO().delete(promotion);
 	}
 
+	public List<Integer> findIdsIncluded(int id) throws SQLException {
+		return DAOFactory.getPromotionDAO().findIdsIncluded(id);
+	} 
+	
+	public List<Integer> findIdsFree(int id) throws SQLException {
+		return DAOFactory.getPromotionDAO().findIdsFree(id);
+	} 
+	
 }
