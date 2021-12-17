@@ -5,6 +5,31 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+
+
+
+<style>
+body {
+   background-image: url('https://www.bibitepaoletti.com/wp-content/uploads/2019/05/vintage-1659117_1280-1280x533.jpg'); 
+   
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+   background-position: center;
+
+   color: #FFFFFF;
+}
+
+h1{
+    color: #800000;
+}
+
+
+</style>
+
+
+
+
 </head>
 <body>
 

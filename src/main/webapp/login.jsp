@@ -5,6 +5,21 @@
 <html>
 <head>
 <jsp:include page="partials/head.jsp"></jsp:include>
+
+<style>
+body {
+   background-image: url('https://i.pinimg.com/originals/b2/27/bc/b227bc858a11ee404975aa6761c78857.jpg'); 
+   
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+   background-position: center;
+
+   color: #FFFFFF;
+}
+</style>
+
+
 </head>
 <body>
 
@@ -38,8 +53,11 @@
 				</div>
 
 				<div class="mb-3">
+						
+			
 					<label for="password" class="form-label">Contraseña</label> 
 					<input type="password" class="form-control" name="password">
+				
 				</div>
 
 				<div class="d-grid gap-2">
