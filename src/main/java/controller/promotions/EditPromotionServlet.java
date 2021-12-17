@@ -1,6 +1,7 @@
 package controller.promotions;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -27,7 +28,13 @@ public class EditPromotionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 
-		Promotion promotion = promotionService.find(id);
+		Promotion promotion = null;
+		try {
+			promotion = promotionService.find(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		req.setAttribute("promotion", promotion);
 
 		RequestDispatcher dispatcher = getServletContext()

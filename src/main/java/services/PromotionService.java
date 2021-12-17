@@ -19,7 +19,7 @@ public class PromotionService {
 		List<BasePromotion> basePromotions = DAOFactory.getPromotionDAO().findAll();
 
 		for (BasePromotion promotion : basePromotions) {
-			promotions.add(find(promotion.getId()));
+				promotions.add(find(promotion.getId()));
 		}
 
 		return promotions;
@@ -182,10 +182,6 @@ public class PromotionService {
 	public void delete(Integer id) {
 		BasePromotion promotion = new BasePromotion(id, "", "", 0, 0);
 		DAOFactory.getPromotionDAO().delete(promotion);
-	}
-
-	public BasePromotion find(Integer id) {
-		return DAOFactory.getPromotionDAO().find(id);
 	}
 
 }

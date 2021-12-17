@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Attraction;
-import model.BasePromotion;
 import model.Promotion;
 import persistence.AttractionDAO;
-import persistence.PromotionDAO;
 import persistence.commons.DAOFactory;
 
 public class AttractionService {
