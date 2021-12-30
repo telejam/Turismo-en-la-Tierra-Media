@@ -62,7 +62,7 @@ h1{
 				</a>
 			</div>
 		</c:if>
-		<table class="table table-stripped table-hover">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th>Atracción</th>
@@ -76,9 +76,7 @@ h1{
 				<c:forEach items="${attractions}" var="attraction">
 					<tr>
 						<td><strong><c:out value="${attraction.name}"></c:out></strong>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Cras pretium eros urna. Sed quis erat congue, bibendum tortor
-								malesuada, iaculis diam. Ut ut imperdiet sapien.</p></td>
+							<p><c:out value="${attraction.description}"></c:out></p></td>
 						<td><c:out value="${attraction.cost}"></c:out></td>
 						<td><c:out value="${attraction.duration}"></c:out></td>
 						<td><c:out value="${attraction.capacity}"></c:out></td>

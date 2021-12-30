@@ -6,8 +6,8 @@ public class AxBPromotion extends Promotion {
 	
 	private  List<Attraction> attractionsToPay = null;
 	
-	public AxBPromotion(int id, String nombre, List<Attraction> attractions, List<Attraction> attractionsToPay) {
-		super(id, nombre, attractions);
+	public AxBPromotion(int id, String nombre, String description, List<Attraction> attractions, List<Attraction> attractionsToPay) {
+		super(id, nombre, description, attractions);
 		this.attractionsToPay = attractionsToPay;
 	}
 

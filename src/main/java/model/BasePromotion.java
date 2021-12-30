@@ -6,15 +6,17 @@ import java.util.Map;
 public class BasePromotion {
 	private int id;
 	private String name;
+	private String description;
 	private String type;
 	private double value;
 	private int disabled;
 	private Map<String, String> errors;
 	
 
-	public BasePromotion(int id, String name, String type, double value, int disabled) {
+	public BasePromotion(int id, String name, String description, String type, double value, int disabled) {
 		this.id = id;
 		this.name = name;
+		this.description = description;
 		this.type = type;
 		this.value = value;
 		this.disabled = disabled;
@@ -34,6 +36,14 @@ public class BasePromotion {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getType() {
@@ -76,6 +86,4 @@ public class BasePromotion {
 	public Map<String, String> getErrors() {
 		return errors;
 	}
-
-
 }

@@ -11,7 +11,7 @@ body {
 	padding-top: 50px;
 }
 </style>
-<script src="/assets/js/scripts.js" defer></script>
+<script src="/TierraMedia3/assets/js/scripts.js" defer></script>
 </head>
 
 <body>

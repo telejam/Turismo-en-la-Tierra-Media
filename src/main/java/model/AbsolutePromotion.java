@@ -6,8 +6,8 @@ public class AbsolutePromotion extends Promotion {
 	
 	private double cost;
 	
-	public AbsolutePromotion(int id, String name, List<Attraction> attractions, double cost) {
-		super(id, name, attractions);
+	public AbsolutePromotion(int id, String name, String description, List<Attraction> attractions, double cost) {
+		super(id, name, description, attractions);
 		this.cost = cost;
 	}
 

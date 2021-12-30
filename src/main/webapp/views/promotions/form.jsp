@@ -29,10 +29,10 @@
 	<h6><c:out value="${attraction.name}"></c:out></h6>
 	<div id="attraction1">
 	    <input type="checkbox" value='<c:out value="${attraction.id}"></c:out>' name="included" 
-		${included.contains(attraction.id)||free.contains(attraction.id) ? " checked " : "" } /> Included<br/>
+		${included.contains(attraction.id)||free.contains(attraction.id) ? " checked " : "" } /> Incluída<br/>
 		
 	    <input type="checkbox" value='<c:out value="${attraction.id}"></c:out>' name="free" 
-		${free.contains(attraction.id) ? " checked " : "" }/> Free<br/>
+		${free.contains(attraction.id) ? " checked " : "" }/> Gratis<br/>
 	</div>
 	<hr>
 

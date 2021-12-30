@@ -15,9 +15,9 @@ public class AttractionService {
 		return DAOFactory.getAttractionDAO().findAll();
 	}
 
-	public Attraction create(String name, Double cost, Double duration, Integer capacity) {
+	public Attraction create(String name, String description, Double cost, Double duration, Integer capacity) {
 
-		Attraction attraction = new Attraction(name, cost, duration, capacity);
+		Attraction attraction = new Attraction(name, description, cost, duration, capacity);
 
 		if (attraction.isValid()) {
 			AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
@@ -28,12 +28,13 @@ public class AttractionService {
 		return attraction;
 	}
 
-	public Attraction update(Integer id, String name, Double cost, Double duration, Integer capacity) {
+	public Attraction update(Integer id, String name, String description, Double cost, Double duration, Integer capacity) {
 
 		AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
 		Attraction attraction = attractionDAO.find(id);
 
 		attraction.setName(name);
+		attraction.setDescription(description);
 		attraction.setCost(cost);
 		attraction.setDuration(duration);
 		attraction.setCapacity(capacity);
@@ -47,7 +48,7 @@ public class AttractionService {
 	}
 
 	public void delete(Integer id) throws SQLException {
-		Attraction attraction = new Attraction(id, null, null, null, null);
+		Attraction attraction = new Attraction(id, null, null, null, null, null);
 		PromotionService promotionService = new PromotionService();
 		List<Promotion> promotions = new ArrayList<Promotion>();
 		List<Attraction> attractionsIncluded = new ArrayList<Attraction>();

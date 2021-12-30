@@ -7,11 +7,13 @@ public abstract class Promotion implements Offer {
 
 	private Integer id;
 	private String name;
+	private String description;
 	protected List<Attraction> attractions;
 
-	public Promotion(Integer id, String name, List<Attraction> attractions) {
+	public Promotion(Integer id, String name, String description, List<Attraction> attractions) {
 		this.id = id;
 		this.name = name;
+		this.description = description;
 		this.attractions = attractions;
 	}
 	
@@ -33,6 +35,16 @@ public abstract class Promotion implements Offer {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

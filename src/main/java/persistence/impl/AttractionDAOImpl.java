@@ -60,9 +60,10 @@ public class AttractionDAOImpl implements AttractionDAO {
 				(
 						result.getInt(1),
 						result.getString(2),
-						result.getDouble(3),
+						result.getString(3),
 						result.getDouble(4),
-						result.getInt(5)
+						result.getDouble(5),
+						result.getInt(6)
 				);
 	}
     
@@ -70,12 +71,13 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public int insert(Attraction attraction) {
 		try {
-			String sql = "INSERT INTO ATTRACTIONS (NAME, COST, DURATION, CAPACITY) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO ATTRACTIONS (NAME, DESCRIPTION, COST, DURATION, CAPACITY) VALUES (?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, attraction.getName());
+			statement.setString(i++, attraction.getDescription());
 			statement.setDouble(i++, attraction.getCost());
 			statement.setDouble(i++, attraction.getDuration());
 			statement.setInt(i++, attraction.getCapacity());
@@ -90,12 +92,13 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public int update(Attraction attraction) {
 		try {
-			String sql = "UPDATE ATTRACTIONS SET NAME = ?, COST = ?, DURATION = ?, CAPACITY = ? WHERE ID = ?";
+			String sql = "UPDATE ATTRACTIONS SET NAME = ?, DESCRIPTION = ?, COST = ?, DURATION = ?, CAPACITY = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, attraction.getName());
+			statement.setString(i++, attraction.getDescription());
 			statement.setDouble(i++, attraction.getCost());
 			statement.setDouble(i++, attraction.getDuration());
 			statement.setInt(i++, attraction.getCapacity());

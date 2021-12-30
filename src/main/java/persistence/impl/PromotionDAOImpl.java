@@ -81,20 +81,22 @@ public class PromotionDAOImpl implements PromotionDAO {
 					result.getInt(1), 
 					result.getString(2),				
 					result.getString(3), 
-					result.getDouble(4), 
-					result.getInt(5)
+					result.getString(4),				
+					result.getDouble(5), 
+					result.getInt(6)
 				);
 	}
 
 	@Override
 	public int insert(BasePromotion promotion) {
 		try {
-			String sql = "INSERT INTO PROMOTIONS (NAME, TYPE, COST) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO PROMOTIONS (NAME, DESCRIPTION, TYPE, COST) VALUES (?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, promotion.getName());
+			statement.setString(i++, promotion.getDescription());
 			statement.setString(i++, promotion.getType());
 			statement.setDouble(i++, promotion.getValue());
 			int rows = statement.executeUpdate();
@@ -108,12 +110,13 @@ public class PromotionDAOImpl implements PromotionDAO {
 	@Override
 	public int update(BasePromotion promotion) {
 		try {
-			String sql = "UPDATE PROMOTIONS SET NAME = ?, TYPE = ?, COST = ? WHERE ID = ?";
+			String sql = "UPDATE PROMOTIONS SET NAME = ?, DESCRIPTION = ?, TYPE = ?, COST = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, promotion.getName());
+			statement.setString(i++, promotion.getDescription());
 			statement.setString(i++, promotion.getType());
 			statement.setDouble(i++, promotion.getValue());
 			statement.setInt(i++, promotion.getId());

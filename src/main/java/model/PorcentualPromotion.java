@@ -6,8 +6,8 @@ public class PorcentualPromotion extends Promotion {
 	
 	private double discount;
 	
-	public PorcentualPromotion(int id, String name, List<Attraction> attractionsPromo, double value) {
-		super(id, name, attractionsPromo);
+	public PorcentualPromotion(int id, String name, String description, List<Attraction> attractionsPromo, double value) {
+		super(id, name, description, attractionsPromo);
 	    this. discount = value;
 	}
 	

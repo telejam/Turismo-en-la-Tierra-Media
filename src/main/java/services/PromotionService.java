@@ -51,6 +51,7 @@ public class PromotionService {
 			promotion = new PorcentualPromotion(
 					basePromotion.getId(),
 					basePromotion.getName(),
+					basePromotion.getDescription(), 
 					includedAttractions, 
 					basePromotion.getValue()
 					);
@@ -60,6 +61,7 @@ public class PromotionService {
 			promotion = new AbsolutePromotion(
 					basePromotion.getId(),
 					basePromotion.getName(),
+					basePromotion.getDescription(), 
 					includedAttractions, 
 					basePromotion.getValue()
 					);
@@ -83,6 +85,7 @@ public class PromotionService {
 			promotion = new AxBPromotion(
 					basePromotion.getId(),
 					basePromotion.getName(),
+					basePromotion.getDescription(), 
 					includedAttractions, 
 					paidForAttractions
 					);
@@ -93,9 +96,9 @@ public class PromotionService {
 	}
 	
 
-	public BasePromotion create(String name, String type, Double value, String[] included, String[] free) throws SQLException {
+	public BasePromotion create(String name, String description, String type, Double value, String[] included, String[] free) throws SQLException {
 		
-		BasePromotion promotion = new BasePromotion(-1, name, type, value, 0); 
+		BasePromotion promotion = new BasePromotion(-1, name, description, type, value, 0); 
 		DAOFactory.getPromotionDAO().insert(promotion);
 		int promotionId = DAOFactory.getPromotionDAO().getLastId();
 
@@ -114,9 +117,9 @@ public class PromotionService {
 		return promotion;
 	}
 
-	public BasePromotion update(Integer id, String name, String type, Double value, String[] included, String[] free) throws SQLException {
+	public BasePromotion update(Integer id, String name, String description, String type, Double value, String[] included, String[] free) throws SQLException {
 		
-		BasePromotion promotion = new BasePromotion(id, name, type, value, 0); 
+		BasePromotion promotion = new BasePromotion(id, name, description, type, value, 0); 
 		DAOFactory.getPromotionDAO().update(promotion);
 		DAOFactory.getPromotionDAO().deleteIncludedById(id);
 		DAOFactory.getPromotionDAO().deleteFreeById(id);
@@ -138,7 +141,7 @@ public class PromotionService {
 	
 
 	public void delete(Integer id) {
-		BasePromotion promotion = new BasePromotion(id, "", "", 0, 0);
+		BasePromotion promotion = new BasePromotion(id, "", "", "", 0, 0);
 		DAOFactory.getPromotionDAO().delete(promotion);
 	}
 

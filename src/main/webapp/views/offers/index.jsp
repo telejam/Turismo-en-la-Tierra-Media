@@ -41,7 +41,7 @@ h1{
 			<h1>Estas son las ofertas de la Tierra Media</h1>
 		</div>
 
-		<table class="table table-stripped table-hover">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th>Nombre</th>

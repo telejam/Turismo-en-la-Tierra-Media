@@ -9,22 +9,24 @@ public class Attraction implements Offer {
 
 	private Integer id;
 	private String name;
+	private String description;
 	private Double cost;
 	private Double duration;
 	private Integer capacity;
 	
 	private Map<String, String> errors;
 	
-	public Attraction(String name, Double cost, Double duration, Integer capacity) {
+	public Attraction(String name, String description, Double cost, Double duration, Integer capacity) {
 		super();
 		this.name = name;
+		this.description = description;
 		this.cost = cost;
 		this.duration = duration;
 		this.capacity = capacity;
 	}
 	
-	public Attraction(Integer id, String name, Double cost, Double duration, Integer capacity) {
-		this(name, cost, duration, capacity);
+	public Attraction(Integer id, String name, String description, Double cost, Double duration, Integer capacity) {
+		this(name, description, cost, duration, capacity);
 		this.id = id;
 	}
 	
@@ -72,6 +74,16 @@ public class Attraction implements Offer {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
